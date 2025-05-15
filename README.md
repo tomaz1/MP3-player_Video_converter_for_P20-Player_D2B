@@ -65,6 +65,7 @@ All those players are/were available to buy in AliExpress and similar online sho
 1.8 inch Button Portable Music Player https://s.click.aliexpress.com/e/_oCC1BC9  
 2.0 inch Touch Portable Music Player https://s.click.aliexpress.com/e/_oC3nAlL  
 2.4 inch Touch Portable Music Player https://s.click.aliexpress.com/e/_oo806v7  
+2.4 inch Touch Portable Music Player 2 https://s.click.aliexpress.com/e/_ooyuSkf  
 
 ## Related projects
 
