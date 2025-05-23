@@ -6,6 +6,8 @@ Scripts to convert videos for avi format of portable music player through ffmpeg
   
 These scripts use a modified ffmpeg version with extra params for x264 codec. normal ffmpeg can't take those params.  
 The ffmpeg was modified by the manufacturer of portable players, I'm not the manufacturer. I'm trying to discover those modifications to offer the ffmpeg mod source code and compiled versions for more platforms (linux, android, and so on).  
+  
+ffmpeg-mod was extracted from the official conversion tool SetupPxConverter(2.0.10).exe  
 
 ## Dependencies
 
