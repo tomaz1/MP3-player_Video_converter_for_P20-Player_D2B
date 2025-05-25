@@ -19,7 +19,7 @@ If the video is split, files will be named with `-00`, `-01`, `-02`, ...
 These scripts rely on a modified ffmpeg build (`ffmpeg-mod.exe`) that supports extra x264 parameters.  
 Standard ffmpeg does not accept those parameters.
 
-> Personally, I don’t trust ffmpeg-mod and always run it in a free [Sandboxie](https://sandboxie-plus.com/) container without internet access.
+> Personally, I don’t trust ffmpeg-mod and always run it in a free [Sandboxie](https://sandboxie-plus.com/) software without internet access.
 
 ## Dependencies
 
@@ -27,12 +27,12 @@ Standard ffmpeg does not accept those parameters.
 - These scripts are designed for Windows.
 
 ## Supported players
-
-AVI format with a custom H.264 video codec  
+ 
 Portable music player with 2.0-inch screen, **288x240 resolution**
 
 ![alt text](players_pics/mp3-player-crn.png)
-![alt text](players_pics/mp3-player-bel.png)
+![alt text](players_pics/mp3-player-bel.png)  
+AVI format with a custom H.264 video codec.
 
 If your player has a different resolution, feel free to search for `288` and `240` in the scripts and adjust them.  
 **TODO (for myself):** Use variables instead of hardcoded values.  
