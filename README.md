@@ -56,13 +56,13 @@ For help:
 
 - **input_file**   Path to the input video file (required)
 
-- **-cropadjust**   0–100, how much to adjust the aspect ratio (default: 0)  
+- **-cropadjust**  0–100, how much to adjust the aspect ratio (default: 0)  
   Adds or removes black borders to better match the device’s ideal 6:5 aspect ratio (288×240)
 
 - **-splitmin**   Segment length in minutes (0 = no splitting)  
   Creates separate files: `name-01.avi`, `name-02.avi`, etc.
 
-- **-soundgain**   Audio gain or reduction in `x.x` dB (default: 0.0, negative values also allowed)
+- **-soundgain**  Audio gain or reduction in `x.x` dB (default: 0.0, negative values also allowed)
 
 ## Example
 
