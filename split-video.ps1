@@ -8,7 +8,7 @@
 
 if ($ShowHelp) {
     Write-Host ""
-    Write-Host "Tomaž, 17.5.25, v1.1"
+    Write-Host "Tomaž, 17.5.25, v1.2"
     Write-Host ""
     Write-Host "Uporaba: run-split.bat input_file [-cropadjust X] [-splitmin Y] [-soundgain Z.Z]"
     write-host "         (X = številka v % od 0 do 100, Y = na vsake Y minut razkosaj video,"
@@ -20,7 +20,7 @@ if ($ShowHelp) {
     Write-Host "  input_file      Pot do video datoteke (obvezno)"
     Write-Host "  cropadjust      0–100, koliko naj se prilagodi razmerje (privzeto 0) -"
     write-host "                  dodajanje oz. rezanje črnega robu, do idealnega razmerja naprave 6/5 (288x240)"
-    Write-Host "  splitmin        Dolzina segmentov v minutah (privzeto 0 = brez razreza) - ustvarijo se datoteke: ime00.avi, ime01.avi itd."
+    Write-Host "  splitmin        Dolzina segmentov v minutah (privzeto 0 = brez razreza) - ustvarijo se datoteke: ime-01.avi, ime-02.avi itd."
     write-host "  soundgain       Zvok bo ojačan/znižan za x.x dB (privzeto 0.0) - Lahko je tudi negativna vrednost, npr -2"
     exit 0
 }
@@ -198,7 +198,7 @@ Write-Host "Vrednost Crop detect CropDetect_origW=$($CropDetect_origW), CropDete
 
 if ($SplitMinutes -eq 0) {
 
-    $outFile = "{0}.{1}" -f $baseName, $ext
+    $outFile = "{0}-p.{1}" -f $baseName, $ext
     #old: -vf "scale=-2:240:flags=lanczos,crop=288:240,transpose=2" `
     & .\ffmpeg-mod.exe -nostdin -y -fflags +genpts -avoid_negative_ts make_zero -vsync cfr `
         -i "$InputFile" -f avi `
@@ -213,7 +213,7 @@ if ($SplitMinutes -eq 0) {
 
     $segmentDuration = $SplitMinutes * 60
     for ($i = 0; $i -lt $totalSeconds; $i += $segmentDuration) {
-        $outFile = "{0}-{1:D2}.{2}" -f $baseName, ($i / $segmentDuration), $ext
+        $outFile = "{0}-{1:D2}.{2}" -f $baseName, (($i / $segmentDuration)+1), $ext
         $start = [TimeSpan]::FromSeconds($i).ToString("hh\:mm\:ss")
 
         #old: -vf "scale=-2:240:flags=lanczos,crop=288:240,transpose=2" `
@@ -240,9 +240,9 @@ if ($SplitMinutes -eq 0) {
 #Težava, ki se pojavi po zgornjem procesu je, da velikokrat prvi video ne deluje 00.avi, ostali videi pa delujejo OK.
 
 #Idejna rešitev:
-#Na moj način naredi prvi "split" in ga imenuj 00_ok.avi
+#Na moj način naredi prvi "split" in ga imenuj 01_ok.avi
 #na hitrejši način naredi vse splite
-#na koncu pobriši 00.avi (ki ponavadi ne deluje) in 00_ok.avi preimenuj v 00.avi
+#na koncu pobriši 01.avi (ki ponavadi ne deluje) in 01_ok.avi preimenuj v 01.avi
 
 #TODO2:
 # lower framerate npr iz 50 na 24, da je manjša datoteka, ker je 24 seveda dovolj.

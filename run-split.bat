@@ -7,7 +7,7 @@ set "CROPADJUST=0"
 set "SPLITMIN=0"
 set "SOUNDGAIN=0"
 
-:: Stabilno preverjanje za pomoè (preveri prvih 9 argumentov)
+:: Stabilno preverjanje za pomoc (Preveri prvih 9 argumentov - ne bi rabil toliko, ampak naj ostane za naprej.)
 if "%~1"=="--help" goto showHelp
 if "%~1"=="-help" goto showHelp
 if "%~1"=="-?" goto showHelp
@@ -76,8 +76,8 @@ if not defined INPUT (
     goto showHelp
 )
 
-:: Klièi PowerShell skripto z vsemi argumenti
-powershell -ExecutionPolicy Bypass -File "split-video1.ps1" ^
+:: Klici PowerShell skripto z vsemi argumenti
+powershell -ExecutionPolicy Bypass -File "split-video.ps1" ^
     -InputFile "%INPUT%" ^
     -CropAdjustPercent %CROPADJUST% ^
     -SplitMinutes %SPLITMIN% ^
@@ -85,5 +85,5 @@ powershell -ExecutionPolicy Bypass -File "split-video1.ps1" ^
 goto :eof
 
 :showHelp
-powershell -ExecutionPolicy Bypass -File "split-video1.ps1" -ShowHelp
+powershell -ExecutionPolicy Bypass -File "split-video.ps1" -ShowHelp
 exit /b 0

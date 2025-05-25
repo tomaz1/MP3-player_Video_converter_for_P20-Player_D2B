@@ -14,7 +14,7 @@ I wasn’t happy with mono sound, and later discovered a few limitations. The ma
 
 This script converts videos to AVI format suitable for portable music players using ffmpeg.  
 It creates output files named like the source file but with `-p` appended.  
-If the video is split, files will be named with `-00`, `-01`, `-02`, ...
+If the video is split, files will be named with `-01`, `-02`, `-03`, ...
 
 These scripts rely on a modified ffmpeg build (`ffmpeg-mod.exe`) that supports extra x264 parameters.  
 Standard ffmpeg does not accept those parameters.
@@ -60,7 +60,7 @@ For help:
   Adds or removes black borders to better match the device’s ideal 6:5 aspect ratio (288×240)
 
 - **-splitmin**   Segment length in minutes (0 = no splitting)  
-  Creates separate files: `name-00.avi`, `name-01.avi`, etc.
+  Creates separate files: `name-01.avi`, `name-02.avi`, etc.
 
 - **-soundgain**   Audio gain or reduction in `x.x` dB (default: 0.0, negative values also allowed)
 
