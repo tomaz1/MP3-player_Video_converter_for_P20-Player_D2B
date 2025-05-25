@@ -85,6 +85,7 @@ Because when I connected the MP3 player to my computer, that’s the name it sho
 
 ![P20 Player_D2B](<players_pics/P20 Player_D2B.png>)
 
+P20 Player_D2B: [Link to manual](manual/P20-Player_D2B-manual-onlineOCR.pdf)
 
 ## Credits
 
