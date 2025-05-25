@@ -1,81 +1,100 @@
-# portable music player avi video converter tool 2025 version
+# AVI Video Converter for Portable MP3 Players (P20-Player_D2B)
 
-## What it does
+## Background
 
-Scripts to convert videos for avi format of portable music player through ffmpeg. It creates a file with the same name than source but ended in "-p".  
-  
-These scripts use a modified ffmpeg version with extra params for x264 codec. normal ffmpeg can't take those params.  
-The ffmpeg was modified by the manufacturer of portable players, I'm not the manufacturer. I'm trying to discover those modifications to offer the ffmpeg mod source code and compiled versions for more platforms (linux, android, and so on).  
-  
-ffmpeg-mod was extracted from the official conversion tool SetupPxConverter(2.0.10).exe  
+I couldn't find `SetupPxConverter(2.0.10).exe`, but I did find  
+https://github.com/fdd4s/portable_music_player_avi_video_converter_tool_2025.
+
+I wasn’t happy with mono sound, and later discovered a few limitations. The main ones were:  
+- Missing stereo sound  
+- Suboptimal audio quality (fdd4s set it to 16k, but it works fine at 22k)  
+- First .avi file sometimes wouldn’t play when splitting  
+- No aspect ratio fix  
+- No support for sound gain  
+
+This script converts videos to AVI format suitable for portable music players using ffmpeg.  
+It creates output files named like the source file but with `-p` appended.  
+If the video is split, files will be named with `-00`, `-01`, `-02`, ...
+
+These scripts rely on a modified ffmpeg build (`ffmpeg-mod.exe`) that supports extra x264 parameters.  
+Standard ffmpeg does not accept those parameters.
+
+> Personally, I don’t trust ffmpeg-mod and always run it in a free [Sandboxie](https://sandboxie-plus.com/) container without internet access.
 
 ## Dependencies
 
-ffmpeg-mod.exe  
+- `ffmpeg-mod.exe`  
+- These scripts are designed for Windows.
 
-these scripts are designed to run in Windows.  
+## Supported players
 
-## Players supported
+AVI format with a custom H.264 video codec  
+Portable music player with 2.0-inch screen, **288x240 resolution**
 
-AVI Format H264 modified video codec - Portable Music Player 2.0 inch 288x240 branded as Benjie D30 https://www.benjie-tx.com/mp3player/217.html  
-AVI Format H264 modified video codec - Portable Music Player 2.4 inch 320x240  
+![alt text](players_pics/mp3-player-crn.png)
+![alt text](players_pics/mp3-player-bel.png)
 
-## How to know the player format
+If your player has a different resolution, feel free to search for `288` and `240` in the scripts and adjust them.  
+**TODO (for myself):** Use variables instead of hardcoded values.  
+(I still don’t know why I didn’t do that in the first place.)
 
-Brandless portable players often don't specify clearly the video format that is supported, to know what type of format is there is available sample videos in the folder test_videos_to_know_format_supported.  
+## How to identify your player's format
 
-For another (older) portable players check out the related project https://github.com/fdd4s/portable_mp3_player_video_converter_tools
-  
-The sample is a fragment of 30 seconds of the Creative Commons video Big Buck Bunny https://en.wikipedia.org/wiki/Big_Buck_Bunny  
+The `test_video` folder contains a 30-second fragment of the Creative Commons video  
+**Big Buck Bunny** – [Wikipedia link](https://en.wikipedia.org/wiki/Big_Buck_Bunny)  
+You can use it to test compatibility with your device.
 
 ## Usage
 
-    $ video2avi288.bat <video file>
-    $ video2avi320.bat <video file>
-    
+    C:\somewhere\> run-split.bat <video file>
+
+For help:  
+
+    C:\somewhere\> run-split.bat -?
+
+### Parameters:
+
+- **input_file**   Path to the input video file (required)
+
+- **-cropadjust**   0–100, how much to adjust the aspect ratio (default: 0)  
+  Adds or removes black borders to better match the device’s ideal 6:5 aspect ratio (288×240)
+
+- **-splitmin**   Segment length in minutes (0 = no splitting)  
+  Creates separate files: `name-00.avi`, `name-01.avi`, etc.
+
+- **-soundgain**   Audio gain or reduction in `x.x` dB (default: 0.0, negative values also allowed)
+
 ## Example
 
-    $ video2avi288.bat video.mp4
+    C:\somewhere\> run-split.bat C:\Cartoons\videofile.mp4 -cropadjust 50 -splitmin 30 -soundgain 5
 
-## Syntax to use
+## MP3 players – known limitations:
 
-Use the next syntax of FFmpeg:  
+- Video files can't be fast-forwarded or bookmarked (unlike MP3s)
+- Video audio does not play through Bluetooth speakers
+- The MP3 player can’t transfer files over Bluetooth, so I have to use a USB-C cable or SD card instead.
 
-Portable Music Player 288x240 AVI Format - Button 1.8 inch and Touch 2.0:  
-ffmpeg-mod.exe -i source.mp4 -f avi -vcodec libx264 -vb 1500000 -r 14 -pix_fmt yuv420p -bufsize 25000k -maxrate 25000k -g 7 -refs 1 -qmin 18 -qmax 43 -profile:v baseline -x264-params imax=98304:pmax=65536:ipmax=163840 -vf "scale=-2:240, crop=288:240, transpose=2" -acodec pcm_s16le -ab 128k -ar 16000 -ac 1 dest.avi  
-  
-Portable Music Player 320x240 AVI Format - Touch 2.4 inch:  
-ffmpeg-mod.exe -i source.mp4 -f avi -vcodec libx264 -vb 1500000 -r 14 -pix_fmt yuv420p -bufsize 25000k -maxrate 25000k -g 7 -refs 1 -qmin 18 -qmax 43 -profile:v baseline -x264-params imax=98304:pmax=65536:ipmax=163840 -vf "scale=-2:240, crop=320:240, transpose=2" -acodec pcm_s16le -ab 128k -ar 16000 -ac 1 dest.avi  
-  
-## How to add subtitles
+## Where to buy these players?
 
-Add ",subtitles=source.srt:force_style='Fontname=Arial,Fontsize=28,PrimaryColour=&H00FFFFFF,SecondaryColour=&H000000FF,BorderStyle=1,Shadow=2'" to "vf" argument if the subtitle filename is source.srt.  
-  
-e.g: ffmpeg-mod.exe -i source.mp4 -f avi -vcodec libx264 -vb 1500000 -r 14 -pix_fmt yuv420p -bufsize 25000k -maxrate 25000k -g 7 -refs 1 -qmin 18 -qmax 43 -profile:v baseline -x264-params imax=98304:pmax=65536:ipmax=163840 -vf "scale=-2:240, crop=288:240, subtitles=source.srt:force_style='Fontname=Arial,Fontsize=28,PrimaryColour=&H00FFFFFF,SecondaryColour=&H000000FF,BorderStyle=1,Shadow=2', transpose=2" -acodec pcm_s16le -ab 128k -ar 16000 -ac 1 dest.avi  
+I bought both of my MP3 players (black and white) on AliExpress.
 
-## How to cut video in fragments every 5 minutes
+## Project name
 
-Add "-map 0 -segment_time 00:05:00 -f segment -reset_timestamps 1" before destination name, and "%02d" (fragment number) in the destination filename.  
-  
-e.g:  
-ffmpeg-mod.exe -i source.mp4 -f avi -vcodec libx264 -vb 1500000 -r 14 -pix_fmt yuv420p -bufsize 25000k -maxrate 25000k -g 7 -refs 1 -qmin 18 -qmax 43 -profile:v baseline -x264-params imax=98304:pmax=65536:ipmax=163840 -vf "scale=-2:240, crop=288:240, transpose=2" -acodec pcm_s16le -ab 128k -ar 16000 -ac 1 -map 0 -segment_time 00:05:00 -f segment -reset_timestamps 1 dest%02d.avi
+Why is the project named **"P20 Player_D2B"**?  
+Because when I connected the MP3 player to my computer, that’s the name it showed :)
 
-## Where to get those players?
+![P20 Player_D2B](<players_pics/P20 Player_D2B.png>)
 
-All those players are/were available to buy in AliExpress and similar online shops (Shopee, eBay, and so on).  
-  
-1.8 inch Button Portable Music Player https://s.click.aliexpress.com/e/_oCC1BC9  
-2.0 inch Touch Portable Music Player https://s.click.aliexpress.com/e/_oC3nAlL  
-2.4 inch Touch Portable Music Player https://s.click.aliexpress.com/e/_oo806v7  
-2.4 inch Touch Portable Music Player 2 https://s.click.aliexpress.com/e/_ooyuSkf  
-
-## Related projects
-
-https://github.com/fdd4s/portable_mp3_player_video_converter_tools  
-https://github.com/fdd4s/shazam-autotag  
 
 ## Credits
 
-Created by fdd4s  
+Originally created by [fdd4s](https://github.com/fdd4s/)  
 Send feedback and questions to fc1471789@gmail.com  
-All script files are public domain https://unlicense.org/  
+
+---
+
+This powershell script and new .bat file created by [tomaz1](https://github.com/tomaz1/)  
+Send feedback to okay-aside-late@duck.com
+
+---
+All script files are public domain https://unlicense.org/
