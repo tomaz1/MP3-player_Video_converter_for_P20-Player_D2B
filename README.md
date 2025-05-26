@@ -19,7 +19,7 @@ If the video is split, files will be named with `-01`, `-02`, `-03`, ...
 These scripts rely on a modified ffmpeg build (`ffmpeg-mod.exe`) that supports extra x264 parameters.  
 Standard ffmpeg does not accept those parameters.
 
-> Personally, I don’t trust ffmpeg-mod and always run it in a free [Sandboxie](https://sandboxie-plus.com/) software without internet access.
+> Personally, I don’t trust ffmpeg-mod and always run it in a free version of [Sandboxie software](https://sandboxie-plus.com/) in a "Box/Folder" without internet access.
 
 ## Dependencies
 
