@@ -30,8 +30,8 @@ Standard ffmpeg does not accept those parameters.
  
 Portable music player with 2.0-inch screen, **288x240 resolution**
 
-![alt text](players_pics/mp3-player-crn.png)
-![alt text](players_pics/mp3-player-bel.png)  
+![black MP3 player](players_pics/mp3-player-crn.png)
+![white MP3 player](players_pics/mp3-player-bel.png)  
 AVI format with a custom H.264 video codec.
 
 If your player has a different resolution, feel free to search for `288` and `240` in the scripts and adjust them.  
@@ -92,7 +92,6 @@ Example, when changing cropadjust value:
     <td><img src="players_pics/cropadjust100.png"></td>
   </tr>
 </table>
-
 
 ## MP3 players – known limitations:
 
