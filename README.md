@@ -68,6 +68,32 @@ For help:
 
     C:\somewhere\> run-split.bat C:\Cartoons\videofile.mp4 -cropadjust 50 -splitmin 30 -soundgain 5
 
+Example, when changing cropadjust value:
+
+<table border="1">
+  <tr>
+    <th>cropadjust value</th>
+    <th>How it looks in this example</th>
+  </tr>
+  <tr>
+    <td>cropadjust = 0</td>
+    <td><img src="players_pics/cropadjust0.png"></td>
+  </tr>
+  <tr>
+    <td>cropadjust = 30</td>
+    <td><img src="players_pics/cropadjust30.png"></td>
+  </tr>
+  <tr>
+    <td>cropadjust = 60</td>
+    <td><img src="players_pics/cropadjust60.png"></td>
+  </tr>
+  <tr>
+    <td>cropadjust = 100</td>
+    <td><img src="players_pics/cropadjust100.png"></td>
+  </tr>
+</table>
+
+
 ## MP3 players – known limitations:
 
 - Video files can't be fast-forwarded or bookmarked (unlike MP3s)
