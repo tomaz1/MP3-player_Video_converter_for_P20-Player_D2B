@@ -28,14 +28,14 @@ Standard ffmpeg does not accept those parameters.
 
 ## Supported players
  
-Portable music player with 2.0-inch screen, **288x240 resolution**
+Portable music player with a 2.01-inch screen (240×296 resolution) and support for AVI video playback at **288×240 resolution**.
 
 ![black MP3 player](players_pics/mp3-player-crn.png)
 ![white MP3 player](players_pics/mp3-player-bel.png)  
 AVI format with a custom H.264 video codec.
 
 If your player has a different resolution, feel free to search for `288` and `240` in the scripts and adjust them.  
-**TODO (for myself):** Use variables instead of hardcoded values.  
+**TODO (for myself):** Use variables instead of hardcoded values.
 (I still don’t know why I didn’t do that in the first place.)
 
 ## How to identify your player's format
