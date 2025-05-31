@@ -28,7 +28,7 @@ Standard ffmpeg does not accept those parameters.
 
 ## Supported players
  
-Portable music player with a 2.01-inch screen (240×296 resolution) and support for AVI video playback at **288×240 resolution**.
+Portable music player with a 1.8-inch screen with support for AVI video playback at **288×240 resolution**.
 
 ![black MP3 player](players_pics/mp3-player-crn.png)
 ![white MP3 player](players_pics/mp3-player-bel.png)  
