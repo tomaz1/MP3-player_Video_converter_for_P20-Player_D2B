@@ -1,9 +1,11 @@
-# AVI Video Converter for Portable MP3 Players (P20-Player_D2B)
+# AVI Video Converter for Portable MP3 Players (P20-Player)
 
 ## Background
 
 I couldn't find `SetupPxConverter(2.0.10).exe`, but I did find  
-https://github.com/fdd4s/portable_music_player_avi_video_converter_tool_2025.
+https://github.com/fdd4s/portable_music_player_avi_video_converter_tool_2025.  
+
+You can get setuppxconverer [here](http://www.eroshifi.com/download/firmware/112.html). (Thanks [fdd4s](https://github.com/fdd4s/)!)
 
 I wasn’t happy with mono sound, and later discovered a few limitations. The main ones were:  
 - Missing stereo sound  
@@ -105,12 +107,12 @@ I bought both of my MP3 players (black and white) on AliExpress.
 
 ## Project name
 
-Why is the project named **"P20 Player_D2B"**?  
+Why is the project named **"P20 Player"**?  
 Because when I connected the MP3 player to my computer, that’s the name it showed :)
 
-![P20 Player_D2B](<players_pics/P20 Player_D2B.png>)
+![P20 Player](<players_pics/P20 Player.png>)
 
-P20 Player_D2B: [Link to manual](manual/P20-Player_D2B-manual-onlineOCR.pdf)
+P20 Player: [Link to manual](manual/P20-Player-manual-onlineOCR.pdf)
 
 ## Credits
 
