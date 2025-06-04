@@ -5,7 +5,9 @@
 I couldn't find `SetupPxConverter(2.0.10).exe`, but I did find  
 https://github.com/fdd4s/portable_music_player_avi_video_converter_tool_2025.  
 
-You can get setuppxconverer [here](http://www.eroshifi.com/download/firmware/112.html). (Thanks [fdd4s](https://github.com/fdd4s/)!)
+*NEW: You can get `SetupPxConverter(2.0.10).exe` [here](http://www.eroshifi.com/download/firmware/112.html). (Thanks [fdd4s](https://github.com/fdd4s/)!)
+
+---
 
 I wasn’t happy with mono sound, and later discovered a few limitations. The main ones were:  
 - Missing stereo sound  
@@ -21,7 +23,8 @@ If the video is split, files will be named with `-01`, `-02`, `-03`, ...
 These scripts rely on a modified ffmpeg build (`ffmpeg-mod.exe`) that supports extra x264 parameters.  
 Standard ffmpeg does not accept those parameters.
 
-> Personally, I don’t trust ffmpeg-mod and always run it in a free version of [Sandboxie software](https://sandboxie-plus.com/) in a "Box/Folder" without internet access.
+> Personally, I don’t trust ffmpeg-mod and always run it in a free version of [Sandboxie software](https://sandboxie-plus.com/) in a "Box/Folder" without internet access.  
+Every time I run ffmpeg-mod it try to connect to the internet.
 
 ## Dependencies
 
@@ -36,9 +39,10 @@ Portable music player with a 1.8-inch screen with support for AVI video playback
 ![white MP3 player](players_pics/mp3-player-bel.png)  
 AVI format with a custom H.264 video codec.
 
-If your player has a different resolution, feel free to search for `288` and `240` in the scripts and adjust them.  
-**TODO (for myself):** Use variables instead of hardcoded values.  
-(I still don’t know why I didn’t do that in the first place.)
+If your player has a different resolution, feel free to change the desired video resolution in the .ps1 script by modifying the variables named:  
+
+    $targetWidth = 288
+    $targetHeight = 240
 
 ## How to identify your player's format
 
@@ -98,7 +102,7 @@ Example, when changing cropadjust value:
 ## MP3 players – known limitations:
 
 - Video files can't be fast-forwarded or bookmarked (unlike MP3s)
-- Video audio does not play through Bluetooth speakers
+- Video audio does not play through Bluetooth speakers (not really necessary)
 - The MP3 player can’t transfer files over Bluetooth, so I have to use a USB-C cable or SD card instead.
 
 ## Where to buy these players?

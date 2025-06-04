@@ -6,9 +6,14 @@
     [switch]$ShowHelp
 )
 
+# Add and use variables for resolution 240x288 instead of hardcoded values !!!
+$targetWidth = 288
+$targetHeight = 240
+
+
 if ($ShowHelp) {
     Write-Host ""
-    Write-Host "Tomaž, 17.5.25, v1.25"
+    Write-Host "Tomaz, 17.5.25, v1.3"
     Write-Host ""
     Write-Host "Usage: run-split.bat input_file [-cropadjust X] [-splitmin Y] [-soundgain Z.Z]"
     write-host "         (X = number in % from 0 to 100, Y = split video every Y minutes,"
@@ -24,6 +29,13 @@ if ($ShowHelp) {
     write-host "  soundgain       Sound will be boosted/reduced by x.x dB (default 0.0) - Can also be a negative value, e.g. -2"
     exit 0
 }
+
+# Preverjanje, če je ffmpeg-mod.exe na voljo v trenutni mapi
+if (-not (Test-Path -Path ".\ffmpeg-mod.exe")) {
+    Write-Error "ffmpeg-mod.exe not found in the current directory. Please ensure it is present."
+    exit 1
+}
+
 
 # Preverjanje InputFile
 if (-not $InputFile -or -not (Test-Path -LiteralPath $InputFile)) {
@@ -121,7 +133,7 @@ Write-Host "Detected Crop detect values: CropDetect_origW=$($CropDetect_origW), 
 # =====================  INTERPOLACIJA NA 6:5  =====================
     # ------- vhodne vrednosti ----------------------------------
     $p        = $CropAdjustPercent / 100.0          # 0–1
-    $targetAR = 6 / 5                               # 1.2
+    $targetAR = $targetWidth / $targetHeight                               # 1.2 (6/5 je 288/240) - dodal vsaj to, če bo kdo res popravljal kodo 240x288, da bo popravil tudi tu
 
     # aktivna slika po cropdetect-u (odstranim staro črnino)
     $Wa = $CropDetect_origW
@@ -131,15 +143,15 @@ Write-Host "Detected Crop detect values: CropDetect_origW=$($CropDetect_origW), 
     # ------- skrajni točki  (LETTER ⇄ CROP) --------------------
     if ($r -ge $targetAR) {
         # slika je širša (ali točno 1.2)   – dodaj/poreži zgoraj‑spodaj
-        $W_letter = 288
+        $W_letter = $targetWidth
         $H_letter = [math]::Floor($W_letter / $r)  # < 240
-        $H_crop   = 240
+        $H_crop   = $targetHeight
         $W_crop   = [math]::Ceiling($H_crop * $r)  # > 288
     } else {
         # slika je ožja – dodaj/poreži levo‑desno
-        $H_letter = 240
+        $H_letter = $targetHeight
         $W_letter = [math]::Floor($H_letter * $r)  # < 288
-        $W_crop   = 288
+        $W_crop   = $targetWidth
         $H_crop   = [math]::Ceiling($W_crop / $r)  # > 240
     }
 
@@ -163,23 +175,23 @@ Write-Host "Detected Crop detect values: CropDetect_origW=$($CropDetect_origW), 
     $filters += "scale=${W_int}:${H_int}:flags=lanczos"
 
     # (3) pad/crop da končno dobimo točno 288×240
-    $padX = 288 - $W_int
-    $padY = 240 - $H_int
+    $padX = $targetWidth - $W_int
+    $padY = $targetHeight - $H_int
 
     if ($padY -gt 0) {                # dodaj črnino zgoraj/spodaj
-        $filters += "pad=${W_int}:240:0:$([math]::Floor($padY/2)):black"
+        $filters += "pad=${W_int}:${targetHeight}:0:$([math]::Floor($padY/2)):black"
     }
     elseif ($padY -lt 0) {            # odreži zgoraj/spodaj (center)
         $cropY = [math]::Floor((-1*$padY)/2)
-        $filters += "crop=${W_int}:240:0:${cropY}"
+        $filters += "crop=${W_int}:${targetHeight}:0:${cropY}"
     }
 
     if ($padX -gt 0) {                # dodaj črnino levo/desno
-        $filters += "pad=288:240:$([math]::Floor($padX/2)):0:black"
+        $filters += "pad=${targetWidth}:${targetHeight}:$([math]::Floor($padX/2)):0:black"
     }
     elseif ($padX -lt 0) {            # odreži levo/desno (center)
         $cropX = [math]::Floor((-1*$padX)/2)
-        $filters += "crop=288:240:${cropX}:0"
+        $filters += "crop=${targetWidth}:${targetHeight}:${cropX}:0"
     }
 
     # (4) rotacija
